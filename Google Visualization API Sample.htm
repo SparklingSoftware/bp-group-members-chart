@@ -1,0 +1,40 @@
+﻿<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>
+      Google Visualization API Sample
+    </title>
+    <script type="text/javascript" src="jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['orgchart']});
+    </script><script src="a" type="text/javascript"></script><link href="uien.css" type="text/css" rel="stylesheet"><script src="Google%20Visualization%20API%20Sample_files/formatendefaultenuienorgcharten.js" type="text/javascript"></script><link type="text/css" rel="stylesheet" href="orgchart.css">
+    <script type="text/javascript">
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          ['Name',                                                                 'Manager', 'Tooltip'],
+          ['Global',                                                                null,      'World Domination'],
+          [{v: 'Australia', f: 'Australia<br/><font color="red">John Doe<br/>John Doe<br/>John Doe<br/></font><hr/>336 Members<br/>'}, 'Global',    null],
+          [{v: 'Melbourne', f: 'Melbourne<br/><font color="red">John Doe<br/>John Doe<br/>John Doe<br/></font><hr/>273 Members<br/>'}, 'Australia',    null],
+          [{v: 'Sydney', f: 'Sydney<br/><font color="red">John Doe<br/>John Doe<br/>John Doe<br/></font><hr/>53 Members<br/>'}, 'Australia',    null],
+          [{v: 'Agile', f: 'Agile<br/><font color="red">John Doe<br/>John Doe<br/>John Doe<br/></font><hr/>53 Active<br/>70 inactive<br/>'}, 'Melbourne',    null],
+        ]);
+      
+        // Create and draw the visualization.
+        new google.visualization.OrgChart(document.getElementById('visualization')).
+            draw(data, {allowHtml: true});
+      }
+      
+
+      google.setOnLoadCallback(drawVisualization);
+    </script>
+  </head>
+  <body style="font-family: Arial;border: 0 none;">
+    <div id="visualization" style="width: 300px; height: 300px;"><table dir="ltr" class="google-visualization-orgchart-table" cellpadding="0" cellspacing="0" align="center"><tbody><tr><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td><td class="google-visualization-orgchart-space-medium"></td></tr><tr class="google-visualization-orgchart-noderow-medium"><td class="google-visualization-orgchart-linenode" colspan="4">&nbsp;</td><td title="World Domination" class="google-visualization-orgchart-node google-visualization-orgchart-node-medium" colspan="6">Global</td><td class="google-visualization-orgchart-linenode" colspan="4">&nbsp;</td></tr><tr class="google-visualization-orgchart-connrow-medium"><td class="google-visualization-orgchart-linenode" colspan="7">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-lineleft">&nbsp;</td><td class="google-visualization-orgchart-linenode" colspan="6">&nbsp;</td></tr><tr class="google-visualization-orgchart-connrow-medium"><td class="google-visualization-orgchart-linenode" colspan="7">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-lineleft">&nbsp;</td><td class="google-visualization-orgchart-linenode" colspan="6">&nbsp;</td></tr><tr class="google-visualization-orgchart-noderow-medium"><td class="google-visualization-orgchart-linenode" colspan="4">&nbsp;</td><td title="" class="google-visualization-orgchart-node google-visualization-orgchart-node-medium" colspan="6">Australia<br><font color="red">John Doe<br>John Doe<br>John Doe<br></font><hr>336 Members<br></td><td class="google-visualization-orgchart-linenode" colspan="4">&nbsp;</td></tr><tr class="google-visualization-orgchart-connrow-medium"><td class="google-visualization-orgchart-linenode" colspan="3">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-linebottom">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-linebottom">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-linebottom">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-linebottom">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-lineleft google-visualization-orgchart-linebottom">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-linebottom">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-linebottom">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-linebottom">&nbsp;</td><td class="google-visualization-orgchart-linenode" colspan="3">&nbsp;</td></tr><tr class="google-visualization-orgchart-connrow-medium"><td class="google-visualization-orgchart-linenode" colspan="3">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-lineleft">&nbsp;</td><td class="google-visualization-orgchart-linenode" colspan="6">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-lineright">&nbsp;</td><td class="google-visualization-orgchart-linenode" colspan="3">&nbsp;</td></tr><tr class="google-visualization-orgchart-noderow-medium"><td title="" class="google-visualization-orgchart-node google-visualization-orgchart-node-medium" colspan="6">Melbourne<br><font color="red">John Doe<br>John Doe<br>John Doe<br></font><hr>273 Members<br></td><td class="google-visualization-orgchart-linenode" colspan="2">&nbsp;</td><td title="" class="google-visualization-orgchart-node google-visualization-orgchart-node-medium" colspan="6">Sydney<br><font color="red">John Doe<br>John Doe<br>John Doe<br></font><hr>53 Members<br></td></tr><tr class="google-visualization-orgchart-connrow-medium"><td class="google-visualization-orgchart-linenode" colspan="3">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-lineleft">&nbsp;</td><td class="google-visualization-orgchart-linenode" colspan="10">&nbsp;</td></tr><tr class="google-visualization-orgchart-connrow-medium"><td class="google-visualization-orgchart-linenode" colspan="3">&nbsp;</td><td class="google-visualization-orgchart-linenode google-visualization-orgchart-lineleft">&nbsp;</td><td class="google-visualization-orgchart-linenode" colspan="10">&nbsp;</td></tr><tr class="google-visualization-orgchart-noderow-medium"><td title="" class="google-visualization-orgchart-node google-visualization-orgchart-node-medium" colspan="6">Agile<br><font color="red">John Doe<br>John Doe<br>John Doe<br></font><hr>53 Active<br>70 inactive<br></td><td class="google-visualization-orgchart-linenode" colspan="8">&nbsp;</td></tr><tr class="google-visualization-orgchart-connrow-medium"><td class="google-visualization-orgchart-linenode" colspan="14">&nbsp;</td></tr></tbody></table></div>
+  
+
+</body></html>
