@@ -27,21 +27,19 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+// Add the google chart API javascripts and stylesheets
 function addHeaderCode() {
   echo '<link type="text/css" rel="stylesheet" href="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/css/orgchart.css" />' . "\n";
   echo '<link type="text/css" rel="stylesheet" href="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/css/uien.css" />' . "\n";
   
   echo '<script type="text/javascript" src="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/js/a" >></script>' . "\n";
   echo '<script type="text/javascript" src="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/js/formatendefaultenuienorgcharten.js" ></script>' . "\n";
-  echo '<script type="text/javascript" src="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/js/jsapi" ></script>' . "\n";
-  echo '<script type="text/javascript" src="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/js/stef.js" ></script>' . "\n";
-  
+  echo '<script type="text/javascript" src="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/js/jsapi" ></script>' . "\n";  
 }
 
 add_action('wp_head', 'addHeaderCode', 1);
 
-//tell wordpress to register the demolistposts shortcode
+// Tell wordpress to register the shortcode
 add_shortcode("bp-group-members-chart", "bp_group_members_chart_handler");
 
 function bp_group_members_chart_handler() {
@@ -52,6 +50,7 @@ function bp_group_members_chart_handler() {
   return $output;
 }
 
+// Find the top level groups
 function getRoot($name, $groups)  {
   foreach ( $groups as $potentialRoot) {
      if ($potentialRoot->name === $name)
@@ -61,6 +60,7 @@ function getRoot($name, $groups)  {
   }
 }
 
+// Get the children for the given groups
 function getChildrenForGroup($group, $allGroups) {
 
   $children = array();
@@ -75,6 +75,7 @@ function getChildrenForGroup($group, $allGroups) {
 }
 
 
+// Get the number of people in a group given the group ID
 function getMemberCountByGroupId($groupId, $members) {
   $count = 0;
   foreach ( $members as $member) {
@@ -86,7 +87,7 @@ function getMemberCountByGroupId($groupId, $members) {
   return $count;
 }
 
-
+// Determine the number of people in a group and all its subgroups
 function getMemberCount($group, $allGroups, $members) {
 
   $children = getChildrenForGroup($group, $allGroups);
@@ -109,6 +110,7 @@ function getMemberCount($group, $allGroups, $members) {
   return $allGroups;
 }
 
+// Build the chart
 function bp_group_members_chart_function() {
   //process plugin  
 
