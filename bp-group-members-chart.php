@@ -31,10 +31,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 function addHeaderCode() {
   echo '<link type="text/css" rel="stylesheet" href="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/css/orgchart.css" />' . "\n";
   echo '<link type="text/css" rel="stylesheet" href="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/css/uien.css" />' . "\n";
-  
+
   echo '<script type="text/javascript" src="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/js/a" >></script>' . "\n";
   echo '<script type="text/javascript" src="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/js/formatendefaultenuienorgcharten.js" ></script>' . "\n";
-  echo '<script type="text/javascript" src="' . get_bloginfo('wpurl') . '/wp-content/plugins/bp-group-members-chart/js/jsapi" ></script>' . "\n";  
+  echo '<script type="text/javascript" src="https://www.google.com/jsapi"></script>' . "\n";  
 }
 
 add_action('wp_head', 'addHeaderCode', 1);
@@ -95,14 +95,13 @@ function getMemberCount($group, $allGroups, $members) {
   {
      // No Children, get the member count
      $group->members = getMemberCountByGroupId($group->id, $members);
-//       $group->members = 10;
+     //   $group->members = 10;
   }
   else
   {
-     
      foreach ($children as $child)
      {
-        getMemberCount($child, $allGroups);
+        getMemberCount($child, $allGroups, $members);
         $group->members += $child->members;
      }
   }
@@ -110,34 +109,53 @@ function getMemberCount($group, $allGroups, $members) {
   return $allGroups;
 }
 
+
+
 // Build the chart
 function bp_group_members_chart_function() {
   //process plugin  
 
-  $output = "Start plugin<br/>";
-
   // Get data from the database
   global $wpdb;
   $groups = $wpdb->get_results( "SELECT * FROM wp_bp_groups;" );
-  $members = $wpdb->get_results( "SELECT * FROM wordpress.wp_bp_groups_members;" );
-  $root = getRoot("Global", $groups);  
+  $members = $wpdb->get_results( "SELECT * FROM wp_bp_groups_members;" );
+  $root = getRoot("Melbourne", $groups);  
 
   // Build up results table
   $groups = getMemberCount($root, $groups, $members);
 
-  // Create Output
-  $output .= "<table>";
-  foreach ( $groups as $group ) 
-  {
-     $output .= "<tr>";     
-     $output .= "<td>". $group->name . "</td><td>". $group->members . "</td>";
-     $output .= "</tr>";
-  }
+  // Render Output  
 
-  $output .= "</table>";
-
+  $output .= "   <div id='chart_div'></div>";
+  
+  $output .= "<script type=\"text/javascript\">";
+  $output .= "function draw() {";
+  $output .= "  var data = new google.visualization.DataTable();";
+  $output .= "  data.addColumn('string', 'Name');";
+  $output .= "  data.addColumn('string', 'Manager');";
+  $output .= "  data.addColumn('string', 'ToolTip');";
+  $output .= "  data.addRows([";
+  $output .= "      [{ v: '".$root->name."', f: '".$root->name."<div style=\"color:red; font-style:italic\">President</div>' }, '', 'The President'],";
+  $output .= "      [{ v: 'Jim', f: 'Jim<div style=\"color:red; font-style:italic\">Vice President</div>' }, '".$root->name."', 'VP'],";
+  $output .= "      ['Alice', '".$root->name."', ''],";
+  $output .= "      ['Bob', 'Jim', 'Bob Sponge'],";
+  $output .= "      ['Carol', 'Bob', '']";
+  $output .= "  ]);";
+  $output .= "  var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));";
+  $output .= "   chart.draw(data, { allowHtml: true });";
+  $output .= "}";
+  $output .= "</script>";
+  
   //send back text to calling function
   return $output;
 }
+
+
+//wp_enqueue_script('a',                                plugins_url( '/js/a' , __FILE__ ), false, '1.1', true );
+//wp_enqueue_script('formatendefaultenuienorgcharten',  plugins_url( '/js/formatendefaultenuienorgcharten.js' , __FILE__ ), false, '1.1', true );
+//wp_enqueue_script('jsapi',                            'https://www.google.com/jsapi' , false, '1.1', true );
+
+wp_enqueue_script('renderGroupMembersChart',          plugins_url( '/js/wp.js' , __FILE__ ), false, '1.1', true );
+
 ?>
 
